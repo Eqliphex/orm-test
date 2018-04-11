@@ -57,7 +57,17 @@ class User {
         });
     }
 
+    static async All() {
+        const sql = 'SELECT * FROM USERS';
+
+        console.log('Loading all users...');
+        await connection.query(sql, function (err, result, fields) {
+            if(err) throw err;
+            console.log(result);
+        });
+    }
     /*
+    NOTE:
     Info escaping values: https://github.com/mysqljs/mysql#escaping-query-values
     Info escaping identifiers: https://github.com/mysqljs/mysql#escaping-query-identifiers
     Info template literals: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
@@ -75,9 +85,6 @@ class User {
 }
 
 User.CreateTable();
-
-u1 = new User('Linda', 26);
-u1.Insert();
-
 User.Find(1);
+User.All();
 module.exports = User;
