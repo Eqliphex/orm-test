@@ -8,7 +8,7 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: DBCREDS.user,
     password: DBCREDS.password,
-    database: 'mydb'
+    database: DBCREDS.database
 });
 
 // Create connection to DB
@@ -51,7 +51,7 @@ class User {
 
         console.log(`Querying for user id ${id}... `);
 
-        await connection.query(sql, function (err, result, fields) {
+        await connection.query(sql, [id], function (err, result, fields) {
             if (err) throw err;
             console.log(result);
         });
@@ -79,4 +79,5 @@ User.CreateTable();
 u1 = new User('Linda', 26);
 u1.Insert();
 
+User.Find(1);
 module.exports = User;
